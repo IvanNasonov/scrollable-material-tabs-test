@@ -1,4 +1,4 @@
-package com.scrollablematerialtabs
+package com.scrollabletabview
 
 import android.app.Application
 import com.facebook.react.PackageList

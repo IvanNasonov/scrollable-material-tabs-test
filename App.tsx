@@ -1,6 +1,6 @@
+import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import {NavigationContainer, useIsFocused} from '@react-navigation/native';
-import React from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 
 const Section = () => {
