@@ -1,117 +1,107 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
-
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import {NavigationContainer, useIsFocused} from '@react-navigation/native';
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, ScrollView, StyleSheet, View} from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Section = () => {
+  return <View style={styles.section} />;
+};
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
+const ScreenOne = () => {
+  const isFocused = useIsFocused();
 
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+  // This is needed so the height of the longer tab doesn't affect the shorter tab
+  // if removed both tabs will be the same height (the height of the bigger tab)
+  // this does result in some unpleasant 'snapping' of the screen when switching from
+  // longer tab to the shorter, bit it seems like a better alternative
+  const position = isFocused ? 'relative' : 'absolute';
+
   return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+    <View style={[styles.screen, {position}]}>
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
+      <Section />
     </View>
   );
-}
+};
+const ScreenTwo = () => {
+  const isFocused = useIsFocused();
 
-function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
+  // This is needed so the height of the longer tab doesn't affect the shorter tab
+  // if removed both tabs will be the same height (the height of the bigger tab)
+  // this does result in some unpleasant 'snapping' of the screen when switching from
+  // longer tab to the shorter, bit it seems like a better alternative
+  const position = isFocused ? 'relative' : 'absolute';
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
+    <View style={[styles.screen, {position}]}>
+      <Section />
+      <Section />
+      <Section />
+    </View>
+  );
+};
+
+type NavigatorParamsList = {
+  firstTab: undefined;
+  secondTab: undefined;
+};
+
+const Tab = createMaterialTopTabNavigator<NavigatorParamsList>();
+
+const Navigator = () => {
+  return (
+    <Tab.Navigator sceneContainerStyle={styles.scene}>
+      <Tab.Screen
+        name="firstTab"
+        component={ScreenOne}
+        options={{tabBarLabel: 'long screen'}}
       />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
+      <Tab.Screen
+        name="secondTab"
+        component={ScreenTwo}
+        options={{tabBarLabel: 'short screen'}}
+      />
+    </Tab.Navigator>
+  );
+};
+
+const App = () => {
+  return (
+    <SafeAreaView style={styles.root}>
+      <NavigationContainer>
+        <ScrollView contentContainerStyle={styles.scrollView}>
+          <Navigator />
+        </ScrollView>
+      </NavigationContainer>
     </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  root: {flex: 1},
+  scene: {backgroundColor: 'white'},
+  screen: {flex: 1, width: '100%', gap: 16, padding: 16},
+  section: {
+    width: '100%',
+    height: 100,
+    borderRadius: 16,
+    backgroundColor: 'lavender',
+    borderColor: 'cornflowerblue',
+    borderWidth: 2,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  scrollView: {
+    flexGrow: 1,
   },
 });
 
