@@ -1,3 +1,12 @@
+# Important notes
+This repo provides an example of material top tabs working inside a ScrollView, it uses RN version 0.71.11 and react native cli, I do not know if this will work on any other versions of React Native or while using Expo.
+
+To run this locally simply follow the [cli setup tutorial from react native website](https://reactnative.dev/docs/environment-setup)
+
+Here is a demo of the finished product
+
+https://github.com/IvanNasonov/scrollable-material-tabs-test/assets/91532260/067efe3d-c5d3-439f-b0c0-aa4142e8f8f1
+
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Getting Started
